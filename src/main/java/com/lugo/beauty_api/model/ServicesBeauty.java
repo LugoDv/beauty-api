@@ -1,29 +1,27 @@
 package com.lugo.beauty_api.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
-@Table(name = "roles")
+@Table(name = "services")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Rol {
-
+public class ServicesBeauty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, length = 100)
     private String name;
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<User> users;
-
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
+    @Column(nullable = false)
+    private double price;
+    @Column(name = "duration_minutes",nullable = false)
+    private int durationMinutes;
 }

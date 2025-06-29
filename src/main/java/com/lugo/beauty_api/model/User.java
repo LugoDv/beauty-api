@@ -1,12 +1,21 @@
-package com.lugo.beauty_api.service;
+package com.lugo.beauty_api.model;
 
-import com.lugo.beauty_api.model.Rol;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -24,7 +33,11 @@ public class User {
     @Column(nullable = false, unique = true, length = 20)
     private String phone;
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Availability> availabilityList;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "role_id")
     private Rol role;
 
